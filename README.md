@@ -2,10 +2,10 @@
 > Status: Developing
 
 ### Developers:
-+ Ana Maria Costa Lima
-+ Brenda Giron Barbosa
-+ Gabriel Luna Maia
-+ Gustavo Emiliano de Jesus dos Santos 
++ Ana Maria Costa Lima - SP309
++ Brenda Giron Barbosa - SP309
++ Gabriel Luna Maia - SP3090329
++ Gustavo Emiliano de Jesus dos Santos - SP309 
 
 ### Application developed to simulate a trading session on a stock exchange.
 --------------------------------------------------------------------------------------------------------------
