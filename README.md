@@ -44,4 +44,4 @@ No additional configuration is required for this project.
 2. Compile the project by pressing the key combination `Ctrl + F9` (Windows/Linux) or `Cmd + F9` (macOS).
 
 3. Run the project by pressing `Shift + F10` (Windows/Linux) or `Ctrl + R` (macOS).
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------
