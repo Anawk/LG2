@@ -1,12 +1,12 @@
-## PREGÃO NA BOLSA DE VALORES
+## TRADING SESSION ON THE STOCK EXCHANGE
 > Status: Developing
-> 
-### Desenvolvedores:
+
+### Developers:
 + Ana Maria Costa Lima
 + Brenda Giron Barbosa
 + Gabriel Luna Maria
 + Gustavo Emiliano de Jesus dos Santos 
 
 
-### Aplicação desenvolvida para simular um pregão na bolsa de valores.
+### Application developed to simulate a trading session on a stock exchange.
 
