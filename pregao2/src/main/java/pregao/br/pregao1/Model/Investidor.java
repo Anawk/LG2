@@ -7,7 +7,7 @@ import java.util.List;
 public class Investidor {
     private int id;
     private String nome;
-    private String dataNascimento;
+    private Date dataNascimento;
     private String CPF;
     private String CEP;
     private String email;
@@ -15,9 +15,10 @@ public class Investidor {
     private String logradouro;
     private String senha;
     private String usuario;
+
     private List<Transacao> historicoTransacoes;
 
-    public Investidor(String nome, String dataNascimento, String CPF, String CEP, String email, String bairro, String logradouro, String senha, String usuario) {
+    public Investidor(String nome, Date dataNascimento, String CPF, String CEP, String email, String bairro, String logradouro, String senha, String usuario) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.CPF = CPF;
@@ -30,7 +31,14 @@ public class Investidor {
         this.historicoTransacoes = new ArrayList<>();
     }
 
-
+    public static Investidor encontrarInvestidorPorCPF(List<Investidor> investidores, String cpf) {
+        for (Investidor investidor : investidores) {
+            if (investidor.getCPF().equals(cpf)) {
+                return investidor;
+            }
+        }
+        return null;
+    }
     public boolean autenticar(String usuario, String senha) {
         return this.usuario.equals(usuario) && this.senha.equals(senha);
     }
@@ -41,17 +49,49 @@ public class Investidor {
         this.senha = senha;
     }
 
-    public void visualizarHistoricoTransacoes() {
+    public void exibirHistoricoTransacoes() {
+        System.out.println("----- Histórico de Transações -----");
         if (historicoTransacoes.isEmpty()) {
-            System.out.println("O histórico de transações está vazio.");
+            System.out.println("Nenhuma transação realizada.");
         } else {
-            System.out.println("Histórico de Transações:");
             for (Transacao transacao : historicoTransacoes) {
-                System.out.println(transacao);
+                System.out.println("ID Transação: " + transacao.getId_Transacao());
+                System.out.println("Data e Hora: " + transacao.getDataHora());
+                System.out.println("Tipo: " + transacao.getTipo());
+                System.out.println("Status: " + transacao.getStatus());
+                System.out.println("Valor Negociação: " + transacao.getValorNegociacao());
+                System.out.println("Quantidade de Ações: " + transacao.getQtdAcoes());
+                System.out.println("Comissão: " + transacao.getComissao());
+                System.out.println("------------------------------");
             }
         }
     }
 
+
+    public static void listarInvestidores(List<Investidor> investidores) {
+        if (investidores.isEmpty()) {
+            System.out.println("Não há investidores cadastrados.");
+        } else {
+            System.out.println("----- Lista de Investidores -----");
+            for (int i = 0; i < investidores.size(); i++) {
+                Investidor investidor = investidores.get(i);
+                System.out.println(i + ". ID: " + investidor.getId() + ", Nome: " + investidor.getNome());
+            }
+            System.out.println("---------------------------------");
+        }
+    }
+
+    public void adicionarTransacao(Transacao transacao) {
+        historicoTransacoes.add(transacao);
+    }
+
+    public List<Transacao> getHistoricoTransacoes() {
+        return historicoTransacoes;
+    }
+
+    public void setHistoricoTransacoes(List<Transacao> historicoTransacoes) {
+        this.historicoTransacoes = historicoTransacoes;
+    }
 
     @Override
     public String toString() {
@@ -86,11 +126,11 @@ public class Investidor {
         this.nome = nome;
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

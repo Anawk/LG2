@@ -1,5 +1,7 @@
 package pregao.br.pregao1.Model;
 
+import java.util.List;
+
 public class Corretora_Telefone {
     private int idTelefone;
     private int DDD;
@@ -8,6 +10,11 @@ public class Corretora_Telefone {
     public Corretora_Telefone(int DDD, int numero) {
         this.DDD = DDD;
         this.numero = numero;
+    }
+
+    public static void adicionarTelefone(List<Corretora_Telefone> telefones, int ddd, int numero) {
+        Corretora_Telefone telefone = new Corretora_Telefone(ddd, numero);
+        telefones.add(telefone);
     }
 
 

@@ -8,7 +8,7 @@ import java.util.List;
 public class Corretora {
     private int idCorretora;
     private String razaoSocial;
-    private int CNPJ;
+    private long CNPJ;
     private String nomeFantasia;
     private String email;
     private String logradouro;
@@ -17,9 +17,11 @@ public class Corretora {
     private String senha;
     private String usuario;
 
+    private List<Corretora_Telefone> telefones;
+
     private Lista<Investidor> investidores;
 
-    public Corretora(String razaoSocial, int CNPJ, String nomeFantasia, String email, String logradouro, String CEP, String bairro, String senha, String usuario) {
+    public Corretora(String razaoSocial, long CNPJ, String nomeFantasia, String email, String logradouro, String CEP, String bairro, String senha, String usuario) {
         this.razaoSocial = razaoSocial;
         this.CNPJ = CNPJ;
         this.nomeFantasia = nomeFantasia;
@@ -29,9 +31,14 @@ public class Corretora {
         this.bairro = bairro;
         this.senha = senha;
         this.usuario = usuario;
-        this.investidores = new Lista<>();
+        this.telefones = new ArrayList<>();
     }
 
+
+
+    public void adicionarTelefone(Corretora_Telefone telefone) {
+        this.telefones.add(telefone);
+    }
     public void adicionarInvestidor(Investidor investidor) {
         investidores.inserirNoFim(investidor);
     }
@@ -77,6 +84,23 @@ public class Corretora {
                 '}';
     }
 
+
+    public List<Corretora_Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<Corretora_Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
+    public Lista<Investidor> getInvestidores() {
+        return investidores;
+    }
+
+    public void setInvestidores(Lista<Investidor> investidores) {
+        this.investidores = investidores;
+    }
+
     public int getIdCorretora() {
         return idCorretora;
     }
@@ -93,11 +117,11 @@ public class Corretora {
         this.razaoSocial = razaoSocial;
     }
 
-    public int getCNPJ() {
+    public long getCNPJ() {
         return CNPJ;
     }
 
-    public void setCNPJ(int CNPJ) {
+    public void setCNPJ(long CNPJ) {
         this.CNPJ = CNPJ;
     }
 
