@@ -113,8 +113,6 @@ public class Main {
     private static void cadastrarInvestidor(List<Investidor> investidores, Scanner scanner) {
         System.out.println("----- Cadastrar Investidor -----");
 
-        System.out.print("ID do investidor: ");
-        int id = scanner.nextInt();
 
         // Solicitar dados do investidor ao usuário
         System.out.print("Nome do investidor: ");
@@ -307,50 +305,51 @@ public class Main {
         System.out.println("----- Realizar Transação -----");
 
         // Obter detalhes da transação
-        System.out.print("Nome fantasia da Corretora Vendedora: ");
-        String nomeCorretoraVendedora = scanner.next();
+        System.out.print("Nome de usuário: ");
+        String usuario = scanner.next();
 
-        scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha = scanner.next();
 
-        System.out.print("Data e Hora (dd/MM/yyyy HH:mm): ");
-        String dataHoraString = scanner.nextLine(); // Usando nextLine() para ler a linha completa
-        Date dataHora = converterStringParaDate(dataHoraString);
+        Investidor investidor = encontrarInvestidorPorUsuario(investidores, usuario);
 
-        System.out.print("ID Investidor Comprador: ");
-        int id = scanner.nextInt();
-        Investidor investidorComprador = encontrarInvestidorPorID(investidores, id);
-        if (investidorComprador != null) {
-            this.idInvestidorComprador = investidorComprador.getId();
+        if (investidor != null && Investidor.autenticar(usuario, senha, investidor)) {
+            System.out.print("Nome fantasia da Corretora Vendedora: ");
+            String nomeCorretoraVendedora = scanner.next();
+
+            scanner.nextLine();
+
+            System.out.print("Data e Hora (dd/MM/yyyy HH:mm): ");
+            String dataHoraString = scanner.nextLine();
+            Date dataHora = converterStringParaDate(dataHoraString);
+
+            System.out.print("Valor da Negociação: ");
+            float valorNegociacao = scanner.nextFloat();
+
+            System.out.print("Tipo (Compra/Venda): ");
+            String tipo = scanner.next();
+
+            System.out.print("Status: ");
+            String status = scanner.next();
+
+            System.out.print("Quantidade de Ações: ");
+            int qtdAcoes = scanner.nextInt();
+
+            System.out.print("Comissão: ");
+            float comissao = scanner.nextFloat();
+
+            Acao acao = escolherAcao(acoesDisponiveis, scanner);
+
+            Transacao transacao = new Transacao(
+                    nomeCorretoraVendedora, dataHora,
+                    investidor, valorNegociacao, tipo, status, qtdAcoes, comissao, acao);
+
+            transacoes.add(transacao);
+            investidor.adicionarTransacao(transacao);
+            System.out.println("Transação realizada com sucesso!");
         } else {
-            System.out.println("Investidor Comprador não encontrado. Transação cancelada.");
-            // Você pode optar por lançar uma exceção aqui ou tratar de outra forma, dependendo da lógica do seu programa.
+            System.out.println("Falha na autenticação. Transação cancelada.");
         }
-
-
-        System.out.print("Valor da Negociação: ");
-        float valorNegociacao = scanner.nextFloat();
-
-        System.out.print("Tipo (Compra/Venda): ");
-        String tipo = scanner.next();
-
-        System.out.print("Status: ");
-        String status = scanner.next();
-
-        System.out.print("Quantidade de Ações: ");
-        int qtdAcoes = scanner.nextInt();
-
-        System.out.print("Comissão: ");
-        float comissao = scanner.nextFloat();
-
-        Acao acao = escolherAcao(acoesDisponiveis, scanner);
-
-        Transacao transacao = new Transacao(nomeCorretoraVendedora, dataHora, id, valorNegociacao, tipo, status, qtdAcoes, comissao, acao
-        );
-
-        // Adicionar a transação à lista de transações
-        transacoes.add(transacao);
-
-        System.out.println("Transação realizada com sucesso!");
     }
 
 
@@ -376,27 +375,7 @@ public class Main {
         }
     }
 
-    private static Acao escolherOuCadastrarAcao(List<Acao> acoes, Scanner scanner) {
-        System.out.print("Deseja escolher uma ação existente (S/N)? ");
-        String opcao = scanner.next();
 
-        if (opcao.equalsIgnoreCase("N")) {
-            // Criar uma nova ação
-            return cadastrarAcao(acoes, scanner);
-        }
-
-        // Listar e escolher uma ação existente
-        listarAcoes(acoes);
-        System.out.print("Escolha o número da ação: ");
-        int indice = scanner.nextInt();
-
-        if (indice >= 0 && indice < acoes.size()) {
-            return acoes.get(indice);
-        } else {
-            System.out.println("Índice inválido. Criando uma nova ação...");
-            return cadastrarAcao(acoes, scanner);
-        }
-    }
 
             private static void listarAcoes (List < Acao > acoes) {
                 System.out.println("----- Lista de Ações -----");
@@ -407,26 +386,30 @@ public class Main {
             }
 
 
-            private static void exibirHistoricoTransacoes(List < Investidor > investidores, List < Transacao > transacoes, Scanner scanner){
-                System.out.println("----- Exibir Histórico de Transações de um Investidor -----");
+    private static void exibirHistoricoTransacoes(List<Investidor> investidores, List<Transacao> transacoes, Scanner scanner) {
+        System.out.println("----- Exibir Histórico de Transações de um Investidor -----");
 
-                // Solicitar ID do investidor ao usuário
-                System.out.print("ID do investidor: ");
-                int idInvestidor = scanner.nextInt();
+        // Solicitar índice do investidor ao usuário
+        System.out.print("Índice do investidor: ");
+        int indiceInvestidor = scanner.nextInt();
 
-                // Encontrar o investidor na lista
-                Investidor investidor = encontrarInvestidorPorID(investidores, idInvestidor);
+        if (indiceInvestidor >= 0 && indiceInvestidor < investidores.size()) {
+            Investidor investidorEscolhido = investidores.get(indiceInvestidor);
 
-                if (investidor != null) {
-                    // Exibir o histórico de transações do investidor
-                    List<Transacao> historico = investidor.getHistoricoTransacoes();
-                    for (Transacao transacao : historico) {
-                        System.out.println(transacao); // Supondo que você tenha um método toString em Transacao
-                    }
-                } else {
-                    System.out.println("Investidor não encontrado.");
+            // Exibir o histórico de transações do investidor escolhido
+            List<Transacao> historico = investidorEscolhido.getHistoricoTransacoes();
+            if (historico.isEmpty()) {
+                System.out.println("O investidor não possui transações.");
+            } else {
+                for (Transacao transacao : historico) {
+                    transacao.Informacoes();
+                    System.out.println("--------------");
                 }
             }
+        } else {
+            System.out.println("Índice de investidor inválido.");
+        }
+    }
 
 
 

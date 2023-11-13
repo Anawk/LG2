@@ -16,6 +16,7 @@ public class Investidor {
     private String senha;
     private String usuario;
 
+
     private List<Transacao> historicoTransacoes;
 
     public Investidor(String nome, Date dataNascimento, String CPF, String CEP, String email, String bairro, String logradouro, String senha, String usuario) {
@@ -39,8 +40,17 @@ public class Investidor {
         }
         return null;
     }
-    public boolean autenticar(String usuario, String senha) {
-        return this.usuario.equals(usuario) && this.senha.equals(senha);
+    public static boolean autenticar(String usuario, String senha, Investidor investidor) {
+        return investidor.usuario.equals(usuario) && investidor.senha.equals(senha);
+    }
+
+    public static Investidor encontrarInvestidorPorUsuario(List<Investidor> investidores, String usuario) {
+        for (Investidor investidor : investidores) {
+            if (investidor.getUsuario().equals(usuario)) {
+                return investidor;
+            }
+        }
+        return null;
     }
 
     public void attInformacoes(String nome, String email, String senha) {
