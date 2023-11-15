@@ -1,19 +1,42 @@
 package pregao.br.pregao1.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class País {
     private int id;
     private String nome;
-    private String sigla;
 
-    public País(String nome, String sigla) {
+    private List<Estado> estados;
+
+    public País(String nome) {
         this.nome = nome;
-        this.sigla = sigla;
+        this.estados = new ArrayList<>();
+    }
+
+    public void adicionarEstado (Estado estado){
+        this.estados.add(estado);
     }
 
     public void exibirInformacoes() {
         System.out.println("ID do País: " + id);
         System.out.println("Nome do País: " + nome);
-        System.out.println("Sigla do País: " + sigla);
+    }
+
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        País país = (País) obj;
+        return id == país.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public int getId() {
@@ -32,11 +55,3 @@ public class País {
         this.nome = nome;
     }
 
-    public String getSigla() {
-        return sigla;
-    }
-
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
-    }
-}

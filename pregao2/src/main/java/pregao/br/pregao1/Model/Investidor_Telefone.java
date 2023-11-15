@@ -1,5 +1,7 @@
 package pregao.br.pregao1.Model;
 
+import java.util.List;
+
 public class Investidor_Telefone {
     private int id;
     private int DDD;
@@ -9,6 +11,12 @@ public class Investidor_Telefone {
         this.DDD = DDD;
         this.numero = numero;
     }
+
+    public static void addTelefone(List<Investidor_Telefone> telefones, int ddd, int numero) {
+        Investidor_Telefone telefone = new Investidor_Telefone(ddd, numero);
+        telefones.add(telefone);
+    }
+
     public void exibirInformacoes() {
         System.out.println("ID do Telefone: " + id);
         System.out.println("DDD: " + DDD);

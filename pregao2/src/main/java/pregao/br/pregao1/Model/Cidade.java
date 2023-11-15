@@ -1,5 +1,7 @@
 package pregao.br.pregao1.Model;
 
+import java.util.Objects;
+
 public class Cidade {
     private int idCidade;
     private String nome;
@@ -12,6 +14,18 @@ public class Cidade {
         System.out.println("Nome da Cidade: " + nome);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Cidade cidade = (Cidade) obj;
+        return idCidade == cidade.idCidade;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCidade);
+    }
 
     public int getIdCidade() {
         return idCidade;

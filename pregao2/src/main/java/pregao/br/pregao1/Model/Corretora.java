@@ -17,11 +17,14 @@ public class Corretora {
     private String senha;
     private String usuario;
 
+    private Cidade cidade;
+    private Estado estado;
+    private País pais;
     private List<Corretora_Telefone> telefones;
 
     private Lista<Investidor> investidores;
 
-    public Corretora(String razaoSocial, long CNPJ, String nomeFantasia, String email, String logradouro, String CEP, String bairro, String senha, String usuario) {
+    public Corretora(String razaoSocial, long CNPJ, String nomeFantasia, String email, String logradouro, String CEP, String bairro,Cidade cidade, Estado estado, País pais, String senha, String usuario) {
         this.razaoSocial = razaoSocial;
         this.CNPJ = CNPJ;
         this.nomeFantasia = nomeFantasia;
@@ -29,6 +32,9 @@ public class Corretora {
         this.logradouro = logradouro;
         this.CEP = CEP;
         this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
         this.senha = senha;
         this.usuario = usuario;
         this.telefones = new ArrayList<>();
@@ -54,14 +60,6 @@ public class Corretora {
         return this.usuario.equals(usuario) && this.senha.equals(senha);
     }
 
-    public void cadastrarCorretora(String razaoSocial, int CNPJ, String nomeFantasia, String email, String senha, String usuario) {
-        this.razaoSocial = razaoSocial;
-        this.CNPJ = CNPJ;
-        this.nomeFantasia = nomeFantasia;
-        this.email = email;
-        this.senha = senha;
-        this.usuario = usuario;
-    }
 
     public void attInformacoes(String email, String senha) {
         this.email = email;
@@ -84,6 +82,29 @@ public class Corretora {
                 '}';
     }
 
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public País getPais() {
+        return pais;
+    }
+
+    public void setPais(País pais) {
+        this.pais = pais;
+    }
 
     public List<Corretora_Telefone> getTelefones() {
         return telefones;

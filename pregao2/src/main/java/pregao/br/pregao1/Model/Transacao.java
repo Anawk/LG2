@@ -39,7 +39,7 @@ public class Transacao {
         this.acao = acao;
     }
 
-    public float ValorTotal() {
+    public float getValorTotal() {
         return valorNegociacao + comissao;
     }
 
@@ -50,17 +50,14 @@ public class Transacao {
         return transacoes.desempilhar();
     }
     public void Informacoes() {
-        System.out.println("ID da Transação: " + id_Transacao);
         System.out.println("Data e Hora: " + dataHora);
-        System.out.println("Corretora que comprou: " + nomeCorretoraCompradora);
-        System.out.println("Corretora que vendeu: " + nomeCorretoraVendedora);
-        System.out.println("Investidor que comprou: " + id_InvestidorComprador);
-        System.out.println("Investidor que vendeu: " + id_InvestidorVendedor);
+        System.out.println("Corretora: " + nomeCorretoraVendedora);
         System.out.println("Valor de Negociação: " + valorNegociacao);
         System.out.println("Tipo: " + tipo);
         System.out.println("Status: " + status);
         System.out.println("Quantidade de Ações: " + qtdAcoes);
         System.out.println("Comissão: " + comissao);
+
     }
 
 

@@ -13,9 +13,10 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+
         List<Corretora> corretoras = new ArrayList<>();
-        List<Acao> acoes = new ArrayList<>(); // Lista geral de todas as ações
-        List<Acao> acoesDisponiveis = new ArrayList<>(); // Lista de ações disponíveis para transação
+        List<Acao> acoes = new ArrayList<>();
+        List<Acao> acoesDisponiveis = new ArrayList<>();
 
         List<Investidor> investidores = new ArrayList<>();
         List<Transacao> transacoes = new ArrayList<>();
@@ -79,22 +80,8 @@ public class Main {
                     realizarTransacao(investidores, corretoras, acoes, transacoes, acoesDisponiveis, scanner);
                     break;
                 case 5:
-                    if (!investidores.isEmpty()) {
-                        System.out.println("Escolha um investidor para exibir o histórico:");
-                        listarInvestidores(investidores);
-                        int indiceInvestidor = scanner.nextInt();
-
-                        if (indiceInvestidor >= 0 && indiceInvestidor < investidores.size()) {
-                            Investidor investidorEscolhido = investidores.get(indiceInvestidor);
-                            exibirHistoricoTransacoes(investidores, transacoes, scanner);
-                        } else {
-                            System.out.println("Índice de investidor inválido.");
-                        }
-                    } else {
-                        System.out.println("Não há investidores cadastrados.");
-                    }
+                   exibirHistoricoTransacoes(investidores, transacoes, scanner);
                     break;
-// No seu switch, mantenha a case 6 como está
                 case 6:
                     exibirEstadoAtualAcoes(acoes);
                     break;
@@ -114,7 +101,7 @@ public class Main {
         System.out.println("----- Cadastrar Investidor -----");
 
 
-        // Solicitar dados do investidor ao usuário
+
         System.out.print("Nome do investidor: ");
         String nome = scanner.next();
 
@@ -123,6 +110,7 @@ public class Main {
         System.out.print("Data de nascimento (dd/MM/yyyy): ");
         String dataNascimentoStr = scanner.next();
         Date dataNascimento = converterStringParaData(dataNascimentoStr);
+        if (Investidor.verificarIdadeValida(dataNascimento)) {
 
         System.out.print("CPF: ");
         String cpf = scanner.next();
@@ -139,19 +127,52 @@ public class Main {
         System.out.print("Logradouro: ");
         String logradouro = scanner.next();
 
+        System.out.print("Cidade: ");
+        String nomeCidade = scanner.next();
+        Cidade cidade = new Cidade(nomeCidade);
+
+        System.out.print("Estado: ");
+        String nomeEstado = scanner.next();
+        Estado estado = new Estado(nomeEstado);
+
+        System.out.print("País: ");
+        String nomePais = scanner.next();
+        País pais = new País(nomePais);
+
         System.out.print("Senha: ");
         String senha = scanner.next();
 
         System.out.print("Nome de usuário: ");
         String usuario = scanner.next();
 
-        // Criar uma instância de Investidor
-        Investidor investidor = new Investidor( nome, dataNascimento, cpf, cep, email, bairro, logradouro, senha, usuario);
 
-        // Adicionar o investidor à lista de investidores
-        investidores.add(investidor);
+        System.out.print("Saldo inicial: ");
+        float saldo = scanner.nextFloat();
 
-        System.out.println("Investidor cadastrado com sucesso!");
+            Investidor investidor = new Investidor(nome, dataNascimento, cpf, cep, email, bairro, logradouro, cidade, estado, pais, senha, usuario);
+            investidores.add(investidor);
+
+
+            System.out.print("Quantos telefones a corretora possui? ");
+            int numTelefones = scanner.nextInt();
+
+            for (int i = 0; i < numTelefones; i++) {
+                System.out.println("Telefone #" + (i + 1));
+
+                System.out.print("DDD: ");
+                int ddd = scanner.nextInt();
+
+                System.out.print("Número: ");
+                int numero = scanner.nextInt();
+
+
+                Investidor_Telefone.addTelefone(investidor.getTelefones(), ddd, numero);
+
+            }
+            System.out.println("Investidor cadastrado com sucesso!");
+        } else {
+            System.out.println("O investidor deve ter pelo menos 18 anos para se cadastrar.");
+        }
     }
 
 
@@ -188,16 +209,28 @@ public class Main {
         System.out.print("Bairro: ");
         String bairro = scanner.next();
 
+        System.out.print("Cidade: ");
+        String nomeCidade = scanner.next();
+        Cidade cidade = new Cidade(nomeCidade);
+
+        System.out.print("Estado: ");
+        String nomeEstado = scanner.next();
+        Estado estado = new Estado(nomeEstado);
+
+        System.out.print("País: ");
+        String nomePais = scanner.next();
+        País pais = new País(nomePais);
+
         System.out.print("Senha: ");
         String senha = scanner.next();
 
         System.out.print("Nome de usuário: ");
         String usuario = scanner.next();
 
-        // Crie uma instância de Corretora
-        Corretora corretora = new Corretora(razaoSocial, cnpj, nomeFantasia, email, logradouro, cep, bairro, senha, usuario);
 
-        // Agora, vamos lidar com os telefones
+        Corretora corretora = new Corretora(razaoSocial, cnpj, nomeFantasia, email, logradouro, cep, bairro, cidade, estado, pais, senha, usuario);
+
+
         System.out.print("Quantos telefones a corretora possui? ");
         int numTelefones = scanner.nextInt();
 
@@ -211,7 +244,6 @@ public class Main {
             int numero = scanner.nextInt();
 
 
-            // Adicione o telefone à lista de telefones da corretora
             Corretora_Telefone.adicionarTelefone(corretora.getTelefones(), ddd, numero);
 
 
@@ -227,7 +259,6 @@ public class Main {
             Acao acao = cadastrarAcao(acoes, scanner);
 
             if (acao != null) {
-                // Adicione a ação à lista de ações
                 acoes.add(acao);
                 System.out.println("Ação cadastrada com sucesso!");
             } else {
@@ -257,7 +288,6 @@ public class Main {
             System.out.print("Valor da Ação: ");
             float valorAcao = scanner.nextFloat();
 
-            // Crie uma instância de Acao
             return new Acao(nome, sigla, variacao, qtdMovimentacao, valorAcao);
         } catch (InputMismatchException e) {
             System.out.println("Erro: Insira valores válidos para a Ação.");
@@ -304,7 +334,7 @@ public class Main {
     private static void realizarTransacao(List<Investidor> investidores, List<Corretora> corretoras, List<Acao> acoes, List<Transacao> transacoes, List<Acao> acoesDisponiveis, Scanner scanner) {
         System.out.println("----- Realizar Transação -----");
 
-        // Obter detalhes da transação
+        //Obter detalhes da transação
         System.out.print("Nome de usuário: ");
         String usuario = scanner.next();
 
@@ -340,29 +370,35 @@ public class Main {
 
             Acao acao = escolherAcao(acoesDisponiveis, scanner);
 
-            Transacao transacao = new Transacao(
-                    nomeCorretoraVendedora, dataHora,
-                    investidor, valorNegociacao, tipo, status, qtdAcoes, comissao, acao);
+            float valorTotal1 = (qtdAcoes * acao.getValorAcao()) + valorNegociacao + comissao;
+            System.out.println("Valor Total: " + valorTotal1);
+            System.out.println("Saldo do Investidor: " + investidor.getSaldo());
 
-            transacoes.add(transacao);
-            investidor.adicionarTransacao(transacao);
-            System.out.println("Transação realizada com sucesso!");
-        } else {
-            System.out.println("Falha na autenticação. Transação cancelada.");
-        }
-    }
+            if (investidor.verificarSaldoDisponivel(valorTotal1)) {
+                Transacao transacao = new Transacao(
+                        nomeCorretoraVendedora, dataHora,
+                        investidor, valorNegociacao, tipo, status, qtdAcoes, comissao, acao);
 
+                transacoes.add(transacao);
+                investidor.adicionarTransacao(transacao);
 
+                if (transacao.getTipo().equalsIgnoreCase("venda")) {
+                    investidor.adicionarSaldo(valorTotal1);
+                } else if (transacao.getTipo().equalsIgnoreCase("compra")) {
+                    investidor.diminuirSaldo(valorTotal1);
+                }
 
-    // Função auxiliar para encontrar um investidor por ID
-    static Investidor encontrarInvestidorPorID(List<Investidor> investidores, int id) {
-        for (Investidor investidor : investidores) {
-            if (investidor.getId() == id) {
-                return investidor;
+                System.out.println("Transação realizada com sucesso!");
+                System.out.println("-----------------------------------");
+                System.out.println("Saldo atual: " + investidor.getSaldo());
+            } else {
+                System.out.println("Saldo insuficiente, Transação cancelada.");
             }
         }
-        return null;
     }
+
+
+
 
 
     private static Date converterStringParaDate(String dataString) {
@@ -387,27 +423,36 @@ public class Main {
 
 
     private static void exibirHistoricoTransacoes(List<Investidor> investidores, List<Transacao> transacoes, Scanner scanner) {
-        System.out.println("----- Exibir Histórico de Transações de um Investidor -----");
+        System.out.println("----- Exibir Histórico de Transações -----");
 
-        // Solicitar índice do investidor ao usuário
-        System.out.print("Índice do investidor: ");
-        int indiceInvestidor = scanner.nextInt();
 
-        if (indiceInvestidor >= 0 && indiceInvestidor < investidores.size()) {
-            Investidor investidorEscolhido = investidores.get(indiceInvestidor);
+        System.out.print("Nome de usuário do investidor: ");
+        String usuarioInvestidor = scanner.next();
 
-            // Exibir o histórico de transações do investidor escolhido
-            List<Transacao> historico = investidorEscolhido.getHistoricoTransacoes();
-            if (historico.isEmpty()) {
-                System.out.println("O investidor não possui transações.");
-            } else {
-                for (Transacao transacao : historico) {
-                    transacao.Informacoes();
-                    System.out.println("--------------");
+        Investidor investidorEscolhido = encontrarInvestidorPorUsuario(investidores, usuarioInvestidor);
+
+        if (investidorEscolhido != null) {
+
+            System.out.print("Senha do investidor: ");
+            String senhaInvestidor = scanner.next();
+
+
+            if (Investidor.autenticar(usuarioInvestidor, senhaInvestidor, investidorEscolhido)) {
+                List<Transacao> historico = investidorEscolhido.getHistoricoTransacoes();
+                if (historico.isEmpty()) {
+                    System.out.println("O investidor não possui transações.");
+                } else {
+                    for (Transacao transacao : historico) {
+                        transacao.Informacoes();
+                        System.out.println("--------------");
+                    }
+                    System.out.println("Saldo atual do investidor: " + investidorEscolhido.getSaldo());
                 }
+            } else {
+                System.out.println("Senha incorreta. Não é possível exibir o histórico de transações.");
             }
         } else {
-            System.out.println("Índice de investidor inválido.");
+            System.out.println("Investidor não encontrado.");
         }
     }
 
@@ -433,14 +478,7 @@ public class Main {
             }
         }
 
-   private static Corretora encontrarCorretoraPorNome(List<Corretora> corretoras, String nome) {
-        for (Corretora corretora : corretoras) {
-            if (corretora.getNomeFantasia().equalsIgnoreCase(nome)) {
-                return corretora;
-            }
-        }
-        return null; // Retorna null se a corretora não for encontrada
-    }
+
 
 
     }
