@@ -8,6 +8,19 @@
 + Gustavo Emiliano de Jesus dos Santos - SP3091376
 
 ### Application developed to simulate a trading session on a stock exchange.
+
+#### Ultimas atualizações:
+- Verificação de idade: adicionamos a verificação de idade para garantir que os investidores sejam maiores de idade.
+- Verificação do saldo: implementamos uma lógica para verificar se o saldo disponível do investidor é suficiente para realizar transações.
+- Adição de métodos em Investidor: adicionarSaldo e diminuirSaldo.
+- Aprimoramento na Transação:
+  * Corrigimos a lógica de compra e venda no método realizarTransacao.
+  * Adicionamos a verificação do tipo de transação, e ajuste no saldo do investidor.
+- Exibição do Saldo atual: Adicionamos a exibição do saldo atual após uma transação.
+- Aprimoramento do histórico de transações: melhoramos a exibição do histórico de transações, agora é necessário a autenticação do investidor para ter acesso ao histórico.
+- Relacionamento entre Cidade, Estado e País: implmentamos as respectivas classes.
+- Aprimoramento na inicialização do investidor: ajustamos o construtor e a chamada para a inicialização do investidor considerando Cidade, Estado e País.
+  
 --------------------------------------------------------------------------------------------------------------
 ## Project Installation
 Follow these instructions to clone and set up the project in IntelliJ IDEA.
