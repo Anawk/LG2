@@ -15,7 +15,7 @@ public class País {
         this.estados = new ArrayList<>();
     }
 
-    public void adicionarEstado (Estado estado){
+    public void adicionarEstado(Estado estado) {
         this.estados.add(estado);
     }
 
@@ -23,7 +23,6 @@ public class País {
         System.out.println("ID do País: " + id);
         System.out.println("Nome do País: " + nome);
     }
-
 
 
     @Override
@@ -55,3 +54,4 @@ public class País {
         this.nome = nome;
     }
 
+}

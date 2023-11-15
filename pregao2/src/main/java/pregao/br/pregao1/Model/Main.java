@@ -103,9 +103,7 @@ public class Main {
 
 
         System.out.print("Nome do investidor: ");
-        String nome = scanner.next();
-
-        scanner.nextLine();
+        String nome = scanner.nextLine();
 
         System.out.print("Data de nascimento (dd/MM/yyyy): ");
         String dataNascimentoStr = scanner.next();
@@ -119,24 +117,24 @@ public class Main {
         String cep = scanner.next();
 
         System.out.print("E-mail: ");
-        String email = scanner.next();
+        String email = scanner.nextLine();
 
         System.out.print("Bairro: ");
-        String bairro = scanner.next();
+        String bairro = scanner.nextLine();
 
         System.out.print("Logradouro: ");
-        String logradouro = scanner.next();
+        String logradouro = scanner.nextLine();
 
         System.out.print("Cidade: ");
-        String nomeCidade = scanner.next();
+        String nomeCidade = scanner.nextLine();
         Cidade cidade = new Cidade(nomeCidade);
 
         System.out.print("Estado: ");
-        String nomeEstado = scanner.next();
+        String nomeEstado = scanner.nextLine();
         Estado estado = new Estado(nomeEstado);
 
         System.out.print("País: ");
-        String nomePais = scanner.next();
+        String nomePais = scanner.nextLine();
         País pais = new País(nomePais);
 
         System.out.print("Senha: ");
@@ -195,30 +193,30 @@ public class Main {
         long cnpj = scanner.nextLong();
 
         System.out.print("Nome Fantasia: ");
-        String nomeFantasia = scanner.next();
+        String nomeFantasia = scanner.nextLine();
 
         System.out.print("E-mail: ");
         String email = scanner.next();
 
         System.out.print("Logradouro: ");
-        String logradouro = scanner.next();
+        String logradouro = scanner.nextLine();
 
         System.out.print("CEP: ");
-        String cep = scanner.next();
+        String cep = scanner.nextLine();
 
         System.out.print("Bairro: ");
-        String bairro = scanner.next();
+        String bairro = scanner.nextLine();
 
         System.out.print("Cidade: ");
-        String nomeCidade = scanner.next();
+        String nomeCidade = scanner.nextLine();
         Cidade cidade = new Cidade(nomeCidade);
 
         System.out.print("Estado: ");
-        String nomeEstado = scanner.next();
+        String nomeEstado = scanner.nextLine();
         Estado estado = new Estado(nomeEstado);
 
         System.out.print("País: ");
-        String nomePais = scanner.next();
+        String nomePais = scanner.nextLine();
         País pais = new País(nomePais);
 
         System.out.print("Senha: ");
@@ -274,7 +272,7 @@ public class Main {
     private static Acao cadastrarAcao(List<Acao> acoes, Scanner scanner) {
         try {
             System.out.print("Nome: ");
-            String nome = scanner.next();
+            String nome = scanner.nextLine();
 
             System.out.print("Sigla: ");
             String sigla = scanner.next();
